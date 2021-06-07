@@ -1,1 +1,1 @@
-bot: python -m GPBot
+bot: python -m EMBot
