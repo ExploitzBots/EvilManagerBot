@@ -1,5 +1,5 @@
 from telethon import events, Button
-from EMBot import evil
+from EMBot import Evil
 from Configs import Config
 
 btn =[
@@ -19,7 +19,7 @@ All cmd can be used with ! or ? or /.
 """.format(Config.BOT_US)
 
 
-@evil.on(events.NewMessage(pattern="[!?/]help"))
+@Evil.on(events.NewMessage(pattern="[!?/]help"))
 async def help(event):
 
     if event.is_group:
@@ -29,12 +29,12 @@ async def help(event):
 
     await event.reply(HELP_TEXT, buttons=btn)
 
-@evil.on(events.NewMessage(pattern="^/start help"))
+@Evil.on(events.NewMessage(pattern="^/start help"))
 async def _(event):
 
     await event.reply(HELP_TEXT, buttons=btn)
 
-@evil.on(events.callbackquery.CallbackQuery(data="help"))
+@Evil.on(events.callbackquery.CallbackQuery(data="help"))
 async def _(event):
 
      await event.edit(HELP_TEXT, buttons=btn)
