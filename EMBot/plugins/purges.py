@@ -1,5 +1,5 @@
 from telethon import events, Button
-from EMbot import evil
+from EMbot import Evil
 from EMbot.status import *
 import time
 
@@ -11,7 +11,7 @@ PR_HELP = """
 ‣ `?del` - Deletes the replied to message.
 """
 
-@evil.on(events.NewMessage(pattern=r"^[?!]purge"))
+@Evil.on(events.NewMessage(pattern=r"^[?!]purge"))
 @is_admin
 async def purge_messages(event, perm):
     if not perm.delete_messages:
@@ -39,7 +39,7 @@ async def purge_messages(event, perm):
     text = f"Purged in {time_:0.2f} Second(s)"
     await event.respond(text, parse_mode='markdown')
 
-@evil.on(events.NewMessage(pattern="^[!?/]spurge"))
+@Evil.on(events.NewMessage(pattern="^[!?/]spurge"))
 @is_admin
 async def spurge(event, perm):
     if not perm.delete_messages:
@@ -64,7 +64,7 @@ async def spurge(event, perm):
 
     await event.client.delete_messages(event.chat_id, messages)
 
-@evil.on(events.NewMessage(pattern="^[!?/]del$"))
+@Evil.on(events.NewMessage(pattern="^[!?/]del$"))
 @is_admin
 async def delete_messages(event, perm):
     if not perm.delete_messages:
@@ -78,6 +78,6 @@ async def delete_messages(event, perm):
     await msg.delete()
     await event.delete()
 
-@evil.on(events.callbackquery.CallbackQuery(data="purges"))
+@Evil.on(events.callbackquery.CallbackQuery(data="purges"))
 async def _(event):
     await event.edit(PR_HELP, buttons=[[Button.inline("« Bᴀᴄᴋ", data="help")]])
