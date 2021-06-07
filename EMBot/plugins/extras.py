@@ -1,11 +1,11 @@
-from EMBot import evil
+from EMBot import Evil
 from telethon import events, Button
 from EMBot.status import *
 from datetime import timedelta
 import os
 import requests
 
-@evil.on(events.NewMessage(pattern="[!?/]spem"))
+@Evil.on(events.NewMessage(pattern="[!?/]spem"))
 @is_admin
 async def spam(event, perm):
     if not perm.ban_users:
@@ -16,7 +16,7 @@ async def spam(event, perm):
        await event.reply("That's not a user!")
        return
     ree = (await event.get_reply_message()).sender_id
-    check = await evil.get_permissions(event.chat_id, ree)
+    check = await Evil.get_permissions(event.chat_id, ree)
 
     if check.is_admin:
        await event.reply("He can be a spammer, but he is also an admin!")
@@ -31,8 +31,8 @@ async def spam(event, perm):
        return
 
     re = (await event.get_reply_message()).sender_id
-    user = await evil.get_entity(ree)
+    user = await Evil.get_entity(ree)
     await event.delete()
-    await evil.edit_permissions(event.chat_id, re, timedelta(hours=1), send_messages=False)
-    await evil.send_message(event.chat_id, f"[{user.first_name}](tg://user?id={re}) it looks like you are spamming the chat!\nAnd so has been muted for 1 hour")
+    await Evil.edit_permissions(event.chat_id, re, timedelta(hours=1), send_messages=False)
+    await Evil.send_message(event.chat_id, f"[{user.first_name}](tg://user?id={re}) it looks like you are spamming the chat!\nAnd so has been muted for 1 hour")
 
