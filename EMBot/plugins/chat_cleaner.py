@@ -2,7 +2,7 @@ from telethon import events, Button
 from telethon.errors import ChatAdminRequiredError, UserAdminInvalidError
 from telethon.tl.functions.channels import EditBannedRequest
 from telethon.tl.types import ChannelParticipantsAdmins, ChatBannedRights
-from EMBot import evil
+from EMBot import Evil
 from EMBot.status import *
 
 
@@ -38,7 +38,7 @@ UNBAN_RIGHTS = ChatBannedRights(
 )
 
 
-@evil.on(events.NewMessage(pattern="^[!?/]zombies ?(.*)"))
+@Evil.on(events.NewMessage(pattern="^[!?/]zombies ?(.*)"))
 @is_admin
 async def clean(event, perm):
     if not perm.ban_users:
@@ -88,6 +88,6 @@ async def clean(event, perm):
 
     await cleaning_zombies.edit(stats)
 
-@evil.on(events.callbackquery.CallbackQuery(data="zombies"))
+@Evil.on(events.callbackquery.CallbackQuery(data="zombies"))
 async def _(event):
     await event.edit(CLEANER_HELP, buttons=[[Button.inline("« Bᴀᴄᴋ", data="help")]])
