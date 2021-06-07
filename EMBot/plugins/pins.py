@@ -1,5 +1,5 @@
 from telethon import events, Button, types
-from EMBot import evil
+from EMBot import Evil
 from EMBot.status import *
 
 PINS_TEXT = """
@@ -13,15 +13,15 @@ PINS_TEXT = """
 **➥Note:** __Add `notify` after ?pin to notify all chat members.__
 """
 
-@evil.on(events.NewMessage(pattern="^[?!/]pinned"))
+@Evil.on(events.NewMessage(pattern="^[?!/]pinned"))
 async def get_pinned(event):
     chat_id = (str(event.chat_id)).replace("-100", "")
 
-    Ok = await evil.get_messages(event.chat_id, ids=types.InputMessagePinned()) 
+    Ok = await Evil.get_messages(event.chat_id, ids=types.InputMessagePinned()) 
     tem = f"The pinned message in {event.chat.title} is <a href=https://t.me/c/{chat_id}/{Ok.id}>here</a>."
     await event.reply(tem, parse_mode="html", link_preview=False)
 
-@evil.on(events.NewMessage(pattern="^[!?/]pin ?(.*)"))
+@Evil.on(events.NewMessage(pattern="^[!?/]pin ?(.*)"))
 @is_admin
 async def pin(event, perm):
     if not perm.pin_messages:
@@ -33,22 +33,22 @@ async def pin(event, perm):
        return
     input_str = event.pattern_match.group(1)
     if "notify" in input_str:
-       await evil.pin_message(event.chat_id, msg, notify=True)
+       await Evil.pin_message(event.chat_id, msg, notify=True)
        return
-    await evil.pin_message(event.chat_id, msg)   
+    await Evil.pin_message(event.chat_id, msg)   
 
-@evil.on(events.NewMessage(pattern="^[!?/]unpin ?(.*)"))
+@Evil.on(events.NewMessage(pattern="^[!?/]unpin ?(.*)"))
 @is_admin
 async def unpin(event, perm):
     if not perm.pin_messages:
        await event.reply("You are missing the following rights to use this command:CanPinMsgs.")
        return
     chat_id = (str(event.chat_id)).replace("-100", "")
-    ok = await evil.get_messages(event.chat_id, ids=types.InputMessagePinned())
-    await evil.unpin_message(event.chat_id, ok)
+    ok = await Evil.get_messages(event.chat_id, ids=types.InputMessagePinned())
+    await Evil.unpin_message(event.chat_id, ok)
     await event.reply(f"Successfully unpinned [this](t.me/{event.chat.username}/{ok.id}) message.", link_preview=False)
 
-@evil.on(events.NewMessage(pattern="^[!?/]permapin"))
+@Evil.on(events.NewMessage(pattern="^[!?/]permapin"))
 @is_admin
 async def permapin(event, perm):
     if not perm.pin_messages:
@@ -58,11 +58,11 @@ async def permapin(event, perm):
     if not msg:
        await event.reply("Reply to a msg to permapin it.")
        return
-    hn = await evil.send_message(event.chat_id, msg.message)
-    await evil.pin_message(event.chat_id, hn, notify=True)
+    hn = await Evil.send_message(event.chat_id, msg.message)
+    await Evil.pin_message(event.chat_id, hn, notify=True)
 
 
-@evil.on(events.NewMessage(pattern="^[!?/]unpinall"))
+@Evil.on(events.NewMessage(pattern="^[!?/]unpinall"))
 async def unpinall(event, perm):
     if not perm.pin_messages:
        await event.reply("You are missing the following rights to use this command:CanPinMsgs!")
@@ -73,21 +73,21 @@ unpin all msgs?
 This action can't be undone!
 """
 
-    await evil.send_message(event.chat_id, UNPINALL, buttons=[
+    await Evil.send_message(event.chat_id, UNPINALL, buttons=[
     [Button.inline("Confirm", data="unpin")], 
     [Button.inline("Cancel", data="cancel")]])
 
-@evil.on(events.callbackquery.CallbackQuery(data="unpin"))
+@Evil.on(events.callbackquery.CallbackQuery(data="unpin"))
 async def confirm(event):
     check = await event.client.get_permissions(event.chat_id, event.sender_id)
     if check.is_creator:
-        await evil.unpin_message(event.chat_id)
+        await Evil.unpin_message(event.chat_id)
         await event.edit("Unpinned All Msgs!")
         return 
 
     await event.answer("Group Creator Required!")
 
-@evil.on(events.callbackquery.CallbackQuery(data="cancel"))
+@Evil.on(events.callbackquery.CallbackQuery(data="cancel"))
 async def cancel(event):
 
     check = await event.client.get_permissions(event.chat_id, event.sender_id)
@@ -98,7 +98,7 @@ async def cancel(event):
     await event.answer("Group Creator Required!")
 
 
-@evil.on(events.callbackquery.CallbackQuery(data="pins"))
+@Evil.on(events.callbackquery.CallbackQuery(data="pins"))
 async def _(event):
 
     await event.edit(PINS_TEXT, buttons=[[Button.inline("« Bᴀᴄᴋ", data="help")]])
