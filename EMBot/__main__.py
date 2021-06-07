@@ -1,25 +1,13 @@
-#    TelethonGPBot
-#    Copyright (C) 2021 TgxBots
-
-#    This program is distributed in the hope that it will be useful,
-#    but WITHOUT ANY WARRANTY; without even the implied warranty of
-#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-#    GNU Affero General Public License for more details.
-
-#    See < https://github.com/TgxBots/TelethonGPBot/blob/master/LICENSE > 
-#    for the license.
-
-
 import glob
 from pathlib import Path
-from GPBot.utils import load_plugins
+from EMBot.utils import load_plugins
 import logging
-from GPBot import Stark
+from EMBot import Evil
 
 logging.basicConfig(format='[%(levelname) 5s/%(asctime)s] %(name)s: %(message)s',
                     level=logging.INFO)
 
-path = "GPBot/plugins/*.py"
+path = "EMBot/plugins/*.py"
 files = glob.glob(path)
 for name in files:
     with open(name) as a:
@@ -28,7 +16,7 @@ for name in files:
         load_plugins(plugin_name.replace(".py", ""))
     
 print("Successfully Started Bot!")
-print("Visit @TgxBotz")
+print("Running As Usain Bolt")
 
 if __name__ == "__main__":
-    Stark.run_until_disconnected()
+    Evil.run_until_disconnected()
