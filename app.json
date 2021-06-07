@@ -1,12 +1,12 @@
 {
-  "name": "Group-Manager Bot",
+  "name": "EMBot",
   "description": "A simple group-manager bot made with Python [Telethon].",
   "logo": "https://telegra.ph/file/ec1495d982c0544404970.jpg",
   "keywords": [
     "telegram",
     "GPBot",
     "plugins",
-    "telegram-GPbot",
+    "EMBot",
     "productivity",
     "Group-Manager"
   ],
