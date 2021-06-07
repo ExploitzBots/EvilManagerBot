@@ -1,4 +1,4 @@
-from EMBot import Stark
+from EMBot import Evil
 from telethon import events, Button
 
 PM_START_TEXT = """
@@ -8,7 +8,7 @@ Mʏ Sᴇʟғ Gʀᴏᴜᴘ Mᴀɴᴀɢᴇʀ Bʙᴛ Wɪᴛʜ Mᴀʙʏ Oᴛʜᴇʀ 
 **Cʟɪᴄᴋ Tʜᴇ Hᴇʟᴘ Bᴜᴛᴛᴏɴ Tᴏ Sᴇᴇ Wʜᴀʀ I Cᴀɴ Fᴏ**
 """
 
-@evil.on(events.NewMessage(pattern="^[?!/]start$"))
+@Evil.on(events.NewMessage(pattern="^[?!/]start$"))
 async def start(event):
 
     if event.is_private:
