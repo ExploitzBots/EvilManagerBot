@@ -1,17 +1,17 @@
 from telethon import events, Button
-from GPBot import Stark
-from GPBot.status import *
+from EMBot import Evil
+from EMBot.status import *
 from telethon.tl.functions.channels import EditAdminRequest
 from telethon.tl.types import ChatAdminRights
 from telethon.tl.functions.users import GetFullUserRequest
 from telethon.tl.functions.messages import ExportChatInviteRequest
 
-@Stark.on(events.callbackquery.CallbackQuery(data="admin"))
+@Evil.on(events.callbackquery.CallbackQuery(data="admin"))
 async def _(event):
 
     await event.edit(ADMIN_TEXT, buttons=[[Button.inline("« Bᴀᴄᴋ", data="help")]])
 
-@Stark.on(events.NewMessage(pattern="^[!?/]promote ?(.*)"))
+@Evil.on(events.NewMessage(pattern="^[!?/]promote ?(.*)"))
 @is_admin
 async def promote(event, perm):
     if event.is_private:
@@ -26,8 +26,8 @@ async def promote(event, perm):
     if not input_str and not user:
         await event.reply("Reply to a user or give its username to promote him!")
         return
-    sed = await Stark(GetFullUserRequest(id=user.sender_id or input_str))
-    await Stark(EditAdminRequest(event.chat_id, user.sender_id or input_str, ChatAdminRights(
+    sed = await Evil(GetFullUserRequest(id=user.sender_id or input_str))
+    await Evil(EditAdminRequest(event.chat_id, user.sender_id or input_str, ChatAdminRights(
                     add_admins=False,
                     invite_users=True,
                     change_info=False,
@@ -41,7 +41,7 @@ async def promote(event, perm):
 
     await event.reply(f"Succesfully Promoted {input_str} in {event.chat.title}")
  
-@Stark.on(events.NewMessage(pattern="^[!?/]demote ?(.*)"))
+@Evil.on(events.NewMessage(pattern="^[!?/]demote ?(.*)"))
 @is_admin
 async def promote(event, perm):
     if event.is_private:
@@ -55,8 +55,8 @@ async def promote(event, perm):
     if not input_str and not user:
         await event.reply("Reply to a user or give its username to demote him!")
         return
-    sed = await Stark(GetFullUserRequest(id=user.sender_id or input_str))
-    await Stark(EditAdminRequest(event.chat_id, user.sender_id or input_str, ChatAdminRights(
+    sed = await Evil(GetFullUserRequest(id=user.sender_id or input_str))
+    await Evil(EditAdminRequest(event.chat_id, user.sender_id or input_str, ChatAdminRights(
                     add_admins=False,
                     invite_users=None,
                     change_info=None,
@@ -71,13 +71,13 @@ async def promote(event, perm):
     await event.reply(f"Succesfully Demoted {input_str} in {event.chat.title}")
  
 
-@Stark.on(events.NewMessage(pattern="^[!?/]invitelink"))
+@Evil.on(events.NewMessage(pattern="^[!?/]invitelink"))
 async def invitelink(event):
 
     if event.is_private:
        await event.reply("This cmd is made to be used in groups, not in PM!")
        return
-    link = await Stark(ExportChatInviteRequest(event.chat_id))
+    link = await Evil(ExportChatInviteRequest(event.chat_id))
     await event.reply(f"Group link of {event.chat.title} is [here]({link.link})", link_preview=False)
 
 ADMIN_TEXT = """
