@@ -1,6 +1,6 @@
 from telethon import events, Button
-from EMbot import Evil
-from EMbot.status import *
+from EMBot import Evil
+from EMBot.status import *
 import time
 
 PR_HELP = """
