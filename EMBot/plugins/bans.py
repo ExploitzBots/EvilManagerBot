@@ -169,4 +169,4 @@ async def sban(event, perm):
 
 @Evil.on(events.callbackquery.CallbackQuery(data="bans"))
 async def banhelp(event):
-    await event.edit(BANS_TEXT, buttons=[[Button.inline("« Bᴀᴄᴋ", data="help")]]
+    await event.edit(BANS_TEXT, buttons=[[Button.inline("« Bᴀᴄᴋ", data="help")]])
