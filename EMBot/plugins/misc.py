@@ -1,5 +1,5 @@
 from telethon import events, Button, types
-from EMBot import evil
+from EMBot import Evil
 from EMBot.status import *
 from telethon.tl.types import ChannelParticipantsAdmins
 from datetime import timedelta
@@ -14,7 +14,7 @@ MISC_HELP = """
 ‣ `?info` - To get info of a user.
 """
 
-@evil.on(events.NewMessage(pattern="^[!?/]id"))
+@Evil.on(events.NewMessage(pattern="^[!?/]id"))
 async def id(event):
 
     if event.is_private:
@@ -33,11 +33,11 @@ async def id(event):
 
     await event.reply(f"User {msg.sender.first_name} id is `{msg.sender_id}`.")
  
-@evil.on(events.NewMessage(pattern="^[!?/]info ?(.*)"))
+@Evil.on(events.NewMessage(pattern="^[!?/]info ?(.*)"))
 async def info(event):
 
-    sed = await evil(P(user_id=event.sender_id, offset=42, max_id=0, limit=80))
-    hn = await evil(GetFullUserRequest(event.sender_id))
+    sed = await Evil(P(user_id=event.sender_id, offset=42, max_id=0, limit=80))
+    hn = await Evil(GetFullUserRequest(event.sender_id))
     text = "**✘ UserInfo:**\n\n"
     text += "**» Fɪʀsᴛ Nᴀᴍᴇ:** {}\n"
     text += "**» Lᴀsᴛ Nᴀᴍᴇ:** {}\n"
@@ -49,13 +49,13 @@ async def info(event):
 
     input_str = event.pattern_match.group(1)
     if not input_str:
-          await evil.send_message(event.chat_id, text.format(hn.user.first_name, hn.user.last_name, event.sender_id, event.sender.username, sed.count, hn.about, event.sender_id))
+          await Evil.send_message(event.chat_id, text.format(hn.user.first_name, hn.user.last_name, event.sender_id, event.sender.username, sed.count, hn.about, event.sender_id))
           return
  
     input_str = event.pattern_match.group(1)
-    ha = await evil.get_entity(input_str)
-    hu = await evil(GetFullUserRequest(id=input_str))
-    sedd = await evil(P(user_id=input_str, offset=42, max_id=0, limit=80))
+    ha = await Evil.get_entity(input_str)
+    hu = await Evil(GetFullUserRequest(id=input_str))
+    sedd = await Evil(P(user_id=input_str, offset=42, max_id=0, limit=80))
 
     textn = "**✘ UserInfo:**\n\n"
     textn += "**» Fɪʀsᴛ Nᴀᴍᴇ:** {}\n"
@@ -69,6 +69,6 @@ async def info(event):
     await event.reply(textn.format(ha.first_name, ha.last_name, ha.id, ha.username, sedd.count, hu.about, ha.id))
    
 
-@evil.on(events.callbackquery.CallbackQuery(data="misc"))
+@Evil.on(events.callbackquery.CallbackQuery(data="misc"))
 async def _(event):
     await event.edit(MISC_HELP, buttons=[[Button.inline("« Bᴀᴄᴋ", data="help")]])
